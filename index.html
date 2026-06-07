@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
 <title>PHYLS — Seiko 5 Ref. 6119-8093</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -181,8 +182,18 @@ body {
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.4rem;
+  color: rgba(253,252,250,0.65);
+  margin-bottom: 0.3rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+}
+
+.home-age {
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(253,252,250,0.38);
+  margin-top: 0.35rem;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
 .home-title {
@@ -195,12 +206,12 @@ body {
 
 .home-phyls-mark {
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.3em;
+  font-size: 1.15rem;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
   color: var(--gold);
   opacity: 0.85;
-  padding-bottom: 0.1rem;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
 }
 
 .home-sections {
@@ -433,20 +444,21 @@ body {
 
 .detail-num {
   font-family: "Cormorant Garamond", serif;
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-weight: 300;
   color: var(--parchment-deep);
   line-height: 1;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .detail-title {
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-size: 1.55rem;
+  font-weight: 300;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.01em;
 }
 
 .detail-photo {
@@ -686,9 +698,398 @@ details[open] .acc-icon { transform: rotate(45deg); }
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* GRAIN OVERLAY */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* SCREEN HEADER SUBTITLE */
+.screen-header-sub {
+  margin-top: 0.65rem;
+  font-size: 0.75rem;
+  color: rgba(184,148,90,0.65);
+  line-height: 1.65;
+  max-width: 30ch;
+  font-style: italic;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+}
+
+/* HOME PROVENANCE STRIP */
+.home-provenance {
+  margin: 0 1.25rem;
+  padding: 0.8rem 1.25rem;
+  border-top: 0.5px solid var(--parchment-deep);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.home-provenance-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.home-provenance-text strong { color: var(--ink-soft); font-weight: 500; }
+
+/* SERVICE LEDGER HEADER */
+.svc-ledger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 0.5px solid var(--parchment-deep);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* PORTRAIT BUTTON */
+.portrait-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  border: 0.5px solid rgba(184,148,90,0.35);
+  background: transparent;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+  transition: opacity 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.portrait-btn:active { opacity: 1; border-color: var(--gold); }
+.portrait-btn svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+
+/* OWNERSHIP TRANSFER NOTE */
+.transfer-note {
+  margin: 1.25rem 0 0;
+  padding: 1.25rem;
+  border: 0.5px solid var(--dark-border);
+  background: var(--dark);
+  position: relative;
+}
+.transfer-note::before {
+  content: "Stewardship";
+  position: absolute;
+  top: -0.55em;
+  left: 1rem;
+  background: var(--dark);
+  padding: 0 0.45rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.65;
+}
+.transfer-note p {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* CERT STEWARDSHIP */
+.cert-stewardship {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(253,252,250,0.28);
+  text-align: center;
+  line-height: 1.68;
+  margin-top: 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* WATCH CARD OVERLAY */
+.card-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: radial-gradient(ellipse at 50% 40%, #1c1508 0%, #060402 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1.5rem calc(1.5rem + var(--safe-bottom));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+  user-select: none;
+}
+.card-overlay.active { opacity: 1; pointer-events: all; }
+
+.card-overlay-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.watch-card {
+  width: min(76vw, 288px);
+  border-radius: 10px;
+  background: linear-gradient(160deg, #22180e 0%, #110d07 50%, #1a1208 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 3px rgba(0,0,0,0.6),
+    0 0 0 4px rgba(255,255,255,0.04),
+    0 28px 80px rgba(0,0,0,0.95),
+    0 8px 24px rgba(0,0,0,0.6);
+  position: relative;
+  cursor: default;
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+.card-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,240,180,0.07) 50%,
+    rgba(255,220,130,0.13) 55%,
+    rgba(255,240,180,0.07) 62%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.2s;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.3);
+}
+.card-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.82);
+}
+.card-rarity {
+  font-size: 0.38rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.24);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  padding: 0.2rem 0.45rem;
+}
+
+.card-photo-wrap { position: relative; width: 100%; overflow: hidden; }
+.card-photo-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+  z-index: 2;
+}
+.card-photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.85) contrast(1.06) saturate(0.82);
+}
+.card-photo-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(16,10,4,0.28) 0%, transparent 28%, transparent 68%, rgba(8,5,2,0.42) 100%),
+    linear-gradient(to right, rgba(8,5,2,0.14) 0%, transparent 14%, transparent 86%, rgba(8,5,2,0.14) 100%);
+  pointer-events: none;
+}
+
+.card-name-block {
+  padding: 0.65rem 0.9rem 0.6rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.card-watch-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+}
+.card-dealer {
+  font-size: 0.38rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  display: block;
+  margin-top: 0.32rem;
+}
+.card-watch-year {
+  font-size: 0.4rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  display: block;
+  text-align: right;
+}
+.card-watch-serial {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.22);
+  display: block;
+  margin-top: 0.1rem;
+  text-align: right;
+}
+
+.card-stats {
+  padding: 0.62rem 0.9rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.card-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.card-stat-label {
+  font-size: 0.4rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.36);
+  width: 72px;
+  flex-shrink: 0;
+}
+.card-stat-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.card-stat-fill {
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(184,148,90,0.55) 0%, var(--gold) 100%);
+  width: 0%;
+  transition: width 0.95s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-stat-num {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+  width: 18px;
+  text-align: right;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0.9rem;
+  background: rgba(0,0,0,0.28);
+  border-top: 0.5px solid rgba(255,255,255,0.07);
+}
+.card-score-block { display: flex; flex-direction: column; }
+.card-score-label {
+  font-size: 0.38rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 0.1rem;
+}
+.card-score-row { display: flex; align-items: baseline; }
+.card-score {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.55rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.card-score-denom {
+  font-size: 0.52rem;
+  color: rgba(255,255,255,0.2);
+  margin-left: 0.12rem;
+  margin-bottom: 0.15rem;
+}
+.card-id-block { text-align: right; }
+.card-id-label {
+  font-size: 0.38rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.12);
+  display: block;
+  margin-bottom: 0.18rem;
+}
+.card-id-value {
+  font-size: 0.48rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.26);
+  display: block;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.1rem;
+}
+.card-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.46rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: rgba(255,255,255,0.14);
+  padding: 0.35rem 0.5rem;
+  transition: color 0.15s;
+}
+.card-action-btn:active { color: rgba(255,255,255,0.45); }
+.card-action-btn.share { color: rgba(184,148,90,0.55); }
+.card-action-btn.share:active { color: var(--gold); }
+.card-action-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
 </style>
 </head>
 <body>
+<div class="grain" aria-hidden="true"></div>
 <div class="app">
   <div class="screens">
 
@@ -700,7 +1101,8 @@ details[open] .acc-icon { transform: rotate(45deg); }
         <div class="home-cover-text">
           <div>
             <p class="home-ref">Seiko · Japan · 1971</p>
-            <h1 class="home-title">Seiko 5<br>Ref. 6119-8093</h1>
+            <h1 class="home-title">Seiko 5<br>Ref. 6119&#x2011;8093</h1>
+            <p class="home-age">55 years in service</p>
           </div>
           <span class="home-phyls-mark">Phyls</span>
         </div>
@@ -740,6 +1142,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
         </div>
         <div class="home-warranty-dot"></div>
       </div>
+
     </div>
 
     <!-- STORY -->
@@ -833,10 +1236,10 @@ details[open] .acc-icon { transform: rotate(45deg); }
     <div class="screen" id="screen-care">
       <div class="screen-header-dark">
         <p class="screen-header-eyebrow">Operation</p>
-        <h2 class="screen-header-title">Care &amp;<br>Operation</h2>
+        <h2 class="screen-header-title">Care &amp;<br>Daily Use</h2>
+        <p class="screen-header-sub">This watch has been running for 55 years. These notes help you keep it going.</p>
       </div>
       <div class="screen-body">
-        <p class="body-text" style="margin-bottom:1.5rem;">Everything you need to operate and care for this watch. Tap to expand.</p>
         <div class="accordion">
           <details>
             <summary><span class="acc-title">Setting the time</span><svg class="acc-icon" viewBox="0 0 20 20"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg></summary>
@@ -871,9 +1274,13 @@ details[open] .acc-icon { transform: rotate(45deg); }
       <div class="screen-header-dark">
         <p class="screen-header-eyebrow">Maintenance</p>
         <h2 class="screen-header-title">Service<br>Record</h2>
+        <p class="screen-header-sub">Every intervention, documented. This record belongs to the watch and travels with it.</p>
       </div>
       <div class="screen-body">
-        <p class="body-text" style="margin-bottom:1.75rem;">Every intervention on this watch is recorded here. This record belongs to the watch and travels with it.</p>
+        <div class="svc-ledger-header">
+          <span>Intervention Log</span>
+          <span>ST.AU.BL.0001</span>
+        </div>
 
         <div class="service-entry">
           <div class="svc-dot-col">
@@ -892,13 +1299,13 @@ details[open] .acc-icon { transform: rotate(45deg); }
             <div class="svc-dot" style="background:transparent; border: 0.5px solid var(--ink-faint);"></div>
           </div>
           <div>
-            <p class="svc-date" style="color:var(--ink-muted);">Full service due · 2026–2027</p>
-            <p class="svc-desc" style="color:var(--ink-muted);">Recommended within 1–2 years. If the watch begins gaining or losing more than a minute per day, bring it in sooner.</p>
+            <p class="svc-date" style="color:var(--ink-muted);">Full service recommended · 2027–2028</p>
+            <p class="svc-desc" style="color:var(--ink-muted);">A full service is recommended within the next year or two. If the watch begins gaining or losing more than a minute per day, bring it in sooner.</p>
           </div>
         </div>
 
         <div class="service-note">
-          <p>Service through PHYLS keeps this record complete and supports future resale. If serviced elsewhere, share the details so we can add them here.</p>
+          <p>Watches with a complete PHYLS service history are eligible for our resale programme. If serviced elsewhere, we'll add the entry here — though resale eligibility requires a PHYLS inspection.</p>
           <p style="margin-top:0.5rem;"><strong>phyls@gmail.com</strong></p>
         </div>
       </div>
@@ -928,7 +1335,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
           </div>
           <div class="cert-row">
             <span class="cert-row-label">Passport ID</span>
-            <span class="cert-row-value">PHYLS-001</span>
+            <span class="cert-row-value">ST.AU.BL.0001</span>
           </div>
           <div class="cert-row">
             <span class="cert-row-label">Issued</span>
@@ -938,6 +1345,15 @@ details[open] .acc-icon { transform: rotate(45deg); }
             <div class="cert-warranty-dot"></div>
             <span class="cert-warranty-text">Warranty active · Until 10 Dec 2026</span>
           </div>
+          <div class="cert-divider" style="margin-top:1.5rem;"></div>
+          <p class="cert-stewardship">This watch lived before you. It will live after you. This passport holds its record across every hand — yours is one of them.</p>
+        </div>
+
+        <div style="text-align:center;padding:1.5rem 0 0;">
+          <button class="portrait-btn" onclick="openCard()">
+            <svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><line x1="6" y1="7" x2="14" y2="7"/><line x1="6" y1="10" x2="11" y2="10"/><line x1="6" y1="13" x2="13" y2="13"/></svg>
+            Your watch card
+          </button>
         </div>
 
         <div class="community-block">
@@ -953,6 +1369,76 @@ details[open] .acc-icon { transform: rotate(45deg); }
             phyls@gmail.com
           </a>
         </div>
+      </div>
+    </div>
+
+    <!-- WATCH CARD -->
+    <div class="card-overlay" id="card-overlay" onclick="closeCard()">
+      <div class="card-overlay-grain"></div>
+      <div class="watch-card" id="watch-card" onclick="event.stopPropagation()">
+        <div class="card-shine" id="card-shine"></div>
+        <div class="card-header">
+          <span class="card-brand">Phyls</span>
+        </div>
+        <div class="card-photo-wrap">
+          <img class="card-photo" id="card-photo" alt="">
+          <div class="card-photo-vignette"></div>
+        </div>
+        <div class="card-name-block">
+          <div>
+            <p class="card-watch-name">Seiko 5<br>Ref. 6119&#x2011;8093</p>
+            <span class="card-dealer">Issued by PHYLS, Athens</span>
+          </div>
+          <div>
+            <span class="card-watch-year">Japan · 1971</span>
+            <span class="card-watch-serial">175681 TL</span>
+          </div>
+        </div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-label">Condition</span>
+            <div class="card-stat-track"><div class="card-stat-fill" data-val="75"></div></div>
+            <span class="card-stat-num">7.5</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Rarity</span>
+            <div class="card-stat-track"><div class="card-stat-fill" data-val="55"></div></div>
+            <span class="card-stat-num">5.5</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Documentation</span>
+            <div class="card-stat-track"><div class="card-stat-fill" data-val="90"></div></div>
+            <span class="card-stat-num">9.0</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Service</span>
+            <div class="card-stat-track"><div class="card-stat-fill" data-val="85"></div></div>
+            <span class="card-stat-num">8.5</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-score-block">
+            <span class="card-score-label">PHYLS Score</span>
+            <div class="card-score-row">
+              <span class="card-score">7.6</span>
+              <span class="card-score-denom">/10</span>
+            </div>
+          </div>
+          <div class="card-id-block">
+            <span class="card-id-label">PHYLS ID</span>
+            <span class="card-id-value">ST.AU.BL.0001</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="card-action-btn share" onclick="exportCard()">
+          <svg viewBox="0 0 20 20"><path d="M10 3v10M6 7l4-4 4 4"/><path d="M5 13v3a1 1 0 001 1h8a1 1 0 001-1v-3"/></svg>
+          Share
+        </button>
+        <button class="card-action-btn" onclick="closeCard()">
+          <svg viewBox="0 0 20 20"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg>
+          Close
+        </button>
       </div>
     </div>
 
@@ -1013,6 +1499,141 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
+
+function openCard() {
+  const hero = document.querySelector('.home-cover-photo');
+  if (hero) document.getElementById('card-photo').src = hero.src;
+  document.getElementById('card-overlay').classList.add('active');
+  setTimeout(() => {
+    document.querySelectorAll('.card-stat-fill').forEach(b => { b.style.width = b.dataset.val + '%'; });
+  }, 180);
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission().catch(() => {});
+  }
+}
+
+function closeCard() {
+  document.getElementById('card-overlay').classList.remove('active');
+  document.querySelectorAll('.card-stat-fill').forEach(b => { b.style.width = '0%'; });
+}
+
+async function exportCard() {
+  const W = 1080, H = 1920;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const c = cv.getContext('2d');
+  await document.fonts.ready;
+
+  // Background
+  const bg = c.createRadialGradient(W/2, 760, 0, W/2, 760, 1050);
+  bg.addColorStop(0, '#1c1610'); bg.addColorStop(1, '#060402');
+  c.fillStyle = bg; c.fillRect(0, 0, W, H);
+
+  // PHYLS mark
+  c.font = '300 54px "Cormorant Garamond"';
+  c.fillStyle = 'rgba(255,255,255,0.78)';
+  c.textAlign = 'center';
+  c.fillText('P  H  Y  L  S', W/2, 158);
+  c.strokeStyle = 'rgba(255,255,255,0.1)'; c.lineWidth = 1;
+  c.beginPath(); c.moveTo(W/2 - 110, 184); c.lineTo(W/2 + 110, 184); c.stroke();
+
+  // Photo
+  const photo = document.getElementById('card-photo');
+  if (photo && photo.complete && photo.naturalWidth > 0) {
+    const pw = W * 0.84, ph = pw * 0.75;
+    const px = (W - pw) / 2, py = 240;
+    c.save(); c.beginPath(); c.rect(px, py, pw, ph); c.clip();
+    c.drawImage(photo, px, py, pw, ph);
+    c.restore();
+    // Vignette
+    const vig = c.createLinearGradient(0, py, 0, py + ph);
+    vig.addColorStop(0,'rgba(10,7,4,0.28)'); vig.addColorStop(0.25,'transparent');
+    vig.addColorStop(0.75,'transparent'); vig.addColorStop(1,'rgba(6,4,2,0.55)');
+    c.fillStyle = vig; c.fillRect(px, py, pw, ph);
+    // Frame
+    c.strokeStyle = 'rgba(255,255,255,0.07)'; c.lineWidth = 1;
+    c.strokeRect(px, py, pw, ph);
+
+    const ty = py + ph + 96;
+    // Watch name
+    c.font = '300 88px "Cormorant Garamond"';
+    c.fillStyle = 'rgba(255,255,255,0.92)';
+    c.fillText('Seiko 5', W/2, ty);
+    c.font = '300 52px "Cormorant Garamond"';
+    c.fillStyle = 'rgba(255,255,255,0.48)';
+    c.fillText('Ref. 6119‑8093', W/2, ty + 82);
+    // Separator
+    c.strokeStyle = 'rgba(255,255,255,0.1)'; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(W/2 - 90, ty + 118); c.lineTo(W/2 + 90, ty + 118); c.stroke();
+    // Score label
+    c.font = '300 26px "DM Sans"';
+    c.fillStyle = 'rgba(255,255,255,0.26)';
+    c.fillText('PHYLS  SCORE', W/2, ty + 170);
+    // Score
+    c.font = '300 136px "Cormorant Garamond"';
+    c.fillStyle = '#b8945a';
+    c.fillText('7.6', W/2, ty + 295);
+    // Gold rule
+    c.strokeStyle = 'rgba(184,148,90,0.3)'; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(W/2 - 55, ty + 325); c.lineTo(W/2 + 55, ty + 325); c.stroke();
+  }
+  // PHYLS ID
+  c.font = '300 24px "DM Sans"';
+  c.fillStyle = 'rgba(255,255,255,0.18)';
+  c.fillText('ST.AU.BL.0001', W/2, H - 96);
+
+  cv.toBlob(async (blob) => {
+    const file = new File([blob], 'phyls-ST.AU.BL.0001.png', { type: 'image/png' });
+    try {
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] }); return;
+      }
+    } catch(e) {}
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'phyls-ST.AU.BL.0001.png';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+  });
+}
+
+// Card tilt — desktop mouse
+const watchCard = document.getElementById('watch-card');
+if (watchCard) {
+  watchCard.addEventListener('mousemove', e => {
+    const r = watchCard.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    watchCard.style.transform = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg)`;
+    const shine = document.getElementById('card-shine');
+    const angle = Math.atan2(y, x) * 180 / Math.PI + 90;
+    shine.style.opacity = '1';
+    shine.style.background = `linear-gradient(${angle}deg, transparent 38%, rgba(255,240,180,0.08) 50%, rgba(255,218,120,0.15) 55%, rgba(255,240,180,0.08) 64%, transparent 74%)`;
+  });
+  watchCard.addEventListener('mouseleave', () => {
+    watchCard.style.transform = '';
+    document.getElementById('card-shine').style.opacity = '0';
+  });
+}
+
+// Card tilt — mobile gyroscope
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', e => {
+    if (!document.getElementById('card-overlay').classList.contains('active') || !watchCard) return;
+    const x = Math.max(-1, Math.min(1, (e.gamma || 0) / 28));
+    const y = Math.max(-1, Math.min(1, ((e.beta || 0) - 30) / 28));
+    watchCard.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+    const intensity = Math.min(Math.sqrt(x * x + y * y) * 0.9, 0.9);
+    const shine = document.getElementById('card-shine');
+    if (intensity > 0.06) {
+      const angle = Math.atan2(y, x) * 180 / Math.PI + 90;
+      shine.style.opacity = String(intensity * 0.9);
+      shine.style.background = `linear-gradient(${angle}deg, transparent 35%, rgba(255,240,180,0.1) 50%, rgba(255,218,120,0.18) 55%, rgba(255,240,180,0.1) 65%, transparent 76%)`;
+    } else {
+      shine.style.opacity = '0';
+    }
+  });
+}
 </script>
 </body>
 </html>
