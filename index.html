@@ -1086,9 +1086,104 @@ details[open] .acc-icon { transform: rotate(45deg); }
 .card-action-btn.share { color: rgba(184,148,90,0.55); }
 .card-action-btn.share:active { color: var(--gold); }
 .card-action-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+
+/* LOCK SCREEN */
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+.lock-screen.unlocking { opacity: 0; pointer-events: none; }
+
+.lock-phyls {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 3rem;
+}
+
+.lock-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lock-input {
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid rgba(255,255,255,0.18);
+  outline: none;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.35em;
+  color: var(--white);
+  text-align: center;
+  width: 16rem;
+  padding-bottom: 0.4rem;
+  caret-color: var(--gold);
+}
+.lock-input::placeholder { color: rgba(255,255,255,0.12); letter-spacing: 0.22em; }
+
+.lock-label {
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+}
+
+.lock-error {
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(184,148,90,0.55);
+  margin-top: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.lock-error.show { opacity: 1; }
+
+@keyframes lock-shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-8px); }
+  40%,80% { transform: translateX(8px); }
+}
+.lock-input.shake { animation: lock-shake 0.35s ease; }
 </style>
 </head>
 <body>
+
+<!-- LOCK SCREEN -->
+<div class="lock-screen" id="lock-screen">
+  <p class="lock-phyls">Phyls</p>
+  <div class="lock-field">
+    <input class="lock-input" id="lock-input" type="password" maxlength="12"
+      inputmode="numeric" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" placeholder="· · · · · · · · · · · ·">
+    <p class="lock-label">Access code</p>
+  </div>
+  <p class="lock-error" id="lock-error">Incorrect code</p>
+</div>
+
+<script>
+(function () {
+  var CODE = '611980931506';
+  var param = new URLSearchParams(window.location.search).get('c');
+  if (param === CODE) sessionStorage.setItem('phyls-auth', CODE);
+  if (sessionStorage.getItem('phyls-auth') === CODE) {
+    document.getElementById('lock-screen').style.display = 'none';
+  }
+})();
+</script>
+
 <div class="grain" aria-hidden="true"></div>
 <div class="app">
   <div class="screens">
@@ -1596,6 +1691,35 @@ async function exportCard() {
     document.body.removeChild(a); URL.revokeObjectURL(url);
   });
 }
+
+// Lock screen interaction
+(function () {
+  var CODE = '611980931506';
+  var lock = document.getElementById('lock-screen');
+  var input = document.getElementById('lock-input');
+  var error = document.getElementById('lock-error');
+  if (!lock || lock.style.display === 'none') return;
+
+  setTimeout(function () { input.focus(); }, 300);
+
+  input.addEventListener('input', function () {
+    error.classList.remove('show');
+    if (this.value.length >= CODE.length) {
+      if (this.value === CODE) {
+        sessionStorage.setItem('phyls-auth', CODE);
+        lock.classList.add('unlocking');
+        setTimeout(function () { lock.style.display = 'none'; }, 520);
+      } else {
+        input.classList.add('shake');
+        error.classList.add('show');
+        setTimeout(function () {
+          input.classList.remove('shake');
+          input.value = '';
+        }, 380);
+      }
+    }
+  });
+})();
 
 // Card tilt — desktop mouse
 const watchCard = document.getElementById('watch-card');
