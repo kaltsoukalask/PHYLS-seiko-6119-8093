@@ -1444,7 +1444,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
           <p class="cert-stewardship">This watch lived before you. It will live after you. This passport holds its record across every hand — yours is one of them.</p>
         </div>
 
-        <div style="text-align:center;padding:1.5rem 0 0;">
+        <div style="text-align:center;padding:1.75rem 0;">
           <button class="portrait-btn" onclick="openCard()">
             <svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="2"/><line x1="6" y1="7" x2="14" y2="7"/><line x1="6" y1="10" x2="11" y2="10"/><line x1="6" y1="13" x2="13" y2="13"/></svg>
             Your watch card
@@ -1616,68 +1616,233 @@ async function exportCard() {
   const W = 1080, H = 1920;
   const cv = document.createElement('canvas');
   cv.width = W; cv.height = H;
-  const c = cv.getContext('2d');
+  const ctx = cv.getContext('2d');
   await document.fonts.ready;
 
+  // Scale factor: export card is 800px wide vs 288px CSS card
+  const SP = 800 / 288;
+  const B  = 16;
+  const fs = r => Math.round(r * B * SP);
+  const pp = r => Math.round(r * B * SP);
+  const ls = (r, sz) => { try { ctx.letterSpacing = Math.round(r * sz) + 'px'; } catch(e) {} };
+  const ls0 = () => { try { ctx.letterSpacing = '0px'; } catch(e) {} };
+
   // Background
-  const bg = c.createRadialGradient(W/2, 760, 0, W/2, 760, 1050);
+  const bg = ctx.createRadialGradient(W*.5, H*.38, 0, W*.5, H*.38, H*.62);
   bg.addColorStop(0, '#1c1610'); bg.addColorStop(1, '#060402');
-  c.fillStyle = bg; c.fillRect(0, 0, W, H);
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-  // PHYLS mark
-  c.font = '300 54px "Cormorant Garamond"';
-  c.fillStyle = 'rgba(255,255,255,0.78)';
-  c.textAlign = 'center';
-  c.fillText('P  H  Y  L  S', W/2, 158);
-  c.strokeStyle = 'rgba(255,255,255,0.1)'; c.lineWidth = 1;
-  c.beginPath(); c.moveTo(W/2 - 110, 184); c.lineTo(W/2 + 110, 184); c.stroke();
+  // Card geometry
+  const CW   = 800;
+  const CX   = (W - CW) / 2;                              // 140px left/right
+  const HDR  = Math.round(37 * SP);                       // header ≈ 103px
+  const PHH  = Math.round(CW * .75);                      // photo 4:3 = 600px
+  const NMH  = Math.round(75 * SP);                       // name block ≈ 208px
+  const STH  = pp(0.8);                                   // stat row h ≈ 36px
+  const STG  = pp(0.4);                                   // stat gap ≈ 18px
+  const STPT = pp(0.62);                                  // stats pad top ≈ 28px
+  const STPB = pp(0.5);                                   // stats pad bot ≈ 22px
+  const SASH = STPT + 4*STH + 3*STG + STPB;              // stats area ≈ 248px
+  const FTH  = Math.round(52 * SP);                       // footer ≈ 144px
+  const CARD_H = HDR + PHH + NMH + SASH + FTH;
+  const CY   = Math.round((H - CARD_H) / 2);
+  const R    = Math.round(10 * SP);                       // corner radius
+  const HPP  = pp(0.9);                                   // horiz pad ≈ 40px
 
-  // Photo
+  // Card shadow
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,0.8)';
+  ctx.shadowBlur = 80; ctx.shadowOffsetY = 32;
+  drawRoundRect(ctx, CX, CY, CW, CARD_H, R);
+  ctx.fillStyle = '#060402'; ctx.fill();
+  ctx.restore();
+
+  // Card background (gradient matching app)
+  const cardBg = ctx.createLinearGradient(CX+CW*.7, CY, CX, CY+CARD_H);
+  cardBg.addColorStop(0, '#22180e'); cardBg.addColorStop(.5, '#110d07'); cardBg.addColorStop(1, '#1a1208');
+  drawRoundRect(ctx, CX, CY, CW, CARD_H, R);
+  ctx.fillStyle = cardBg; ctx.fill();
+
+  // Clip card content to rounded rect
+  ctx.save();
+  drawRoundRect(ctx, CX, CY, CW, CARD_H, R);
+  ctx.clip();
+
+  // ── Header ───────────────────────────────────────────────────────────────
+  const hY = CY;
+  ctx.fillStyle = 'rgba(0,0,0,0.3)';
+  ctx.fillRect(CX, hY, CW, HDR);
+  const brandSz = fs(0.65);
+  ctx.font = `300 ${brandSz}px "Cormorant Garamond"`;
+  ls(0.45, brandSz);
+  ctx.fillStyle = 'rgba(255,255,255,0.82)';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('PHYLS', CX + CW/2, hY + HDR/2 + 1);
+  ls0();
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(CX, hY+HDR); ctx.lineTo(CX+CW, hY+HDR); ctx.stroke();
+
+  // ── Photo ────────────────────────────────────────────────────────────────
+  const pY = hY + HDR;
   const photo = document.getElementById('card-photo');
   if (photo && photo.complete && photo.naturalWidth > 0) {
-    const pw = W * 0.84, ph = pw * 0.75;
-    const px = (W - pw) / 2, py = 240;
-    c.save(); c.beginPath(); c.rect(px, py, pw, ph); c.clip();
-    c.drawImage(photo, px, py, pw, ph);
-    c.restore();
-    // Vignette
-    const vig = c.createLinearGradient(0, py, 0, py + ph);
-    vig.addColorStop(0,'rgba(10,7,4,0.28)'); vig.addColorStop(0.25,'transparent');
-    vig.addColorStop(0.75,'transparent'); vig.addColorStop(1,'rgba(6,4,2,0.55)');
-    c.fillStyle = vig; c.fillRect(px, py, pw, ph);
-    // Frame
-    c.strokeStyle = 'rgba(255,255,255,0.07)'; c.lineWidth = 1;
-    c.strokeRect(px, py, pw, ph);
-
-    const ty = py + ph + 96;
-    // Watch name
-    c.font = '300 88px "Cormorant Garamond"';
-    c.fillStyle = 'rgba(255,255,255,0.92)';
-    c.fillText('Seiko 5', W/2, ty);
-    c.font = '300 52px "Cormorant Garamond"';
-    c.fillStyle = 'rgba(255,255,255,0.48)';
-    c.fillText('Ref. 6119‑8093', W/2, ty + 82);
-    // Separator
-    c.strokeStyle = 'rgba(255,255,255,0.1)'; c.lineWidth = 1;
-    c.beginPath(); c.moveTo(W/2 - 90, ty + 118); c.lineTo(W/2 + 90, ty + 118); c.stroke();
-    // Score label
-    c.font = '300 26px "DM Sans"';
-    c.fillStyle = 'rgba(255,255,255,0.26)';
-    c.fillText('PHYLS  SCORE', W/2, ty + 170);
-    // Score
-    c.font = '300 136px "Cormorant Garamond"';
-    c.fillStyle = '#b8945a';
-    c.fillText('7.6', W/2, ty + 295);
-    // Gold rule
-    c.strokeStyle = 'rgba(184,148,90,0.3)'; c.lineWidth = 1;
-    c.beginPath(); c.moveTo(W/2 - 55, ty + 325); c.lineTo(W/2 + 55, ty + 325); c.stroke();
+    ctx.save();
+    ctx.beginPath(); ctx.rect(CX, pY, CW, PHH); ctx.clip();
+    drawCoverImage(ctx, photo, CX, pY, CW, PHH);
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.fillRect(CX, pY, CW, PHH);
+    const vigV = ctx.createLinearGradient(0, pY, 0, pY+PHH);
+    vigV.addColorStop(0,'rgba(16,10,4,.28)'); vigV.addColorStop(.28,'transparent');
+    vigV.addColorStop(.68,'transparent');     vigV.addColorStop(1,'rgba(8,5,2,.42)');
+    ctx.fillStyle = vigV; ctx.fillRect(CX, pY, CW, PHH);
+    const vigH = ctx.createLinearGradient(CX, 0, CX+CW, 0);
+    vigH.addColorStop(0,'rgba(8,5,2,.14)'); vigH.addColorStop(.14,'transparent');
+    vigH.addColorStop(.86,'transparent');   vigH.addColorStop(1,'rgba(8,5,2,.14)');
+    ctx.fillStyle = vigH; ctx.fillRect(CX, pY, CW, PHH);
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+    ctx.strokeRect(CX, pY, CW, PHH);
   }
-  // PHYLS ID
-  c.font = '300 24px "DM Sans"';
-  c.fillStyle = 'rgba(255,255,255,0.18)';
-  c.fillText('ST.AU.BL.0001', W/2, H - 96);
 
-  cv.toBlob(async (blob) => {
+  // ── Name block ───────────────────────────────────────────────────────────
+  const nY = pY + PHH;
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(CX, nY+NMH); ctx.lineTo(CX+CW, nY+NMH); ctx.stroke();
+  const nTop = nY + pp(0.65);
+
+  const wn1Sz = fs(1.1);
+  ctx.font = `300 ${wn1Sz}px "Cormorant Garamond"`;
+  ctx.fillStyle = 'rgba(255,255,255,0.97)';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText('Seiko 5', CX+HPP, nTop);
+
+  const wn2Sz = fs(0.9);
+  ctx.font = `300 ${wn2Sz}px "Cormorant Garamond"`;
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText('Ref. 6119‑8093', CX+HPP, nTop + Math.round(wn1Sz * 1.25));
+
+  const dlrSz = fs(0.38);
+  ctx.font = `300 ${dlrSz}px "DM Sans"`;
+  ls(0.16, dlrSz);
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.fillText('ISSUED BY PHYLS, ATHENS', CX+HPP, nTop + Math.round(wn1Sz*1.25) + Math.round(wn2Sz*1.4));
+  ls0();
+
+  const yrSz = fs(0.4);
+  ctx.font = `300 ${yrSz}px "DM Sans"`;
+  ls(0.2, yrSz);
+  ctx.fillStyle = 'rgba(255,255,255,0.28)';
+  ctx.textAlign = 'right';
+  ctx.fillText('JAPAN · 1971', CX+CW-HPP, nTop);
+  ls0();
+
+  const serialSz = fs(0.7);
+  ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
+  ctx.fillStyle = 'rgba(255,255,255,0.22)';
+  ctx.fillText('175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
+
+  // ── Stats ────────────────────────────────────────────────────────────────
+  const stY = nY + NMH;
+  const STATS = [
+    { label: 'Condition',     pct: .75, num: '7.5' },
+    { label: 'Rarity',        pct: .55, num: '5.5' },
+    { label: 'Documentation', pct: .90, num: '9.0' },
+    { label: 'Service',       pct: .85, num: '8.5' },
+  ];
+  const lblSz = fs(0.4);
+  const numSz = fs(0.8);
+  const lblW  = Math.round(72 * SP);
+  const numW  = Math.round(18 * SP);
+  const barH  = Math.round(3 * SP);
+
+  STATS.forEach((s, i) => {
+    const midY = stY + STPT + i * (STH + STG) + Math.round(STH / 2);
+    ctx.font = `300 ${lblSz}px "DM Sans"`;
+    ls(0.13, lblSz);
+    ctx.fillStyle = 'rgba(255,255,255,0.36)';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(s.label.toUpperCase(), CX+HPP, midY);
+    ls0();
+    ctx.font = `300 ${numSz}px "Cormorant Garamond"`;
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.textAlign = 'right';
+    ctx.fillText(s.num, CX+CW-HPP, midY);
+    const bX = CX + HPP + lblW + pp(0.55);
+    const bW = CW - HPP*2 - lblW - numW - pp(0.55);
+    const bY = Math.round(midY - barH/2);
+    ctx.fillStyle = 'rgba(255,255,255,0.06)';
+    ctx.fillRect(bX, bY, bW, barH);
+    const fill = ctx.createLinearGradient(bX, 0, bX+bW, 0);
+    fill.addColorStop(0, 'rgba(184,148,90,.55)'); fill.addColorStop(1, '#b8945a');
+    ctx.fillStyle = fill;
+    ctx.fillRect(bX, bY, Math.round(bW * s.pct), barH);
+  });
+
+  // ── Footer ───────────────────────────────────────────────────────────────
+  const fY = stY + SASH;
+  ctx.fillStyle = 'rgba(0,0,0,0.28)';
+  ctx.fillRect(CX, fY, CW, FTH);
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(CX, fY); ctx.lineTo(CX+CW, fY); ctx.stroke();
+
+  const fPad = pp(0.55);
+  const scoreLblSz = fs(0.38);
+  const scoreSz    = fs(1.55);
+  const denomSz    = fs(0.52);
+  const idLblSz    = fs(0.38);
+  const idValSz    = fs(0.48);
+
+  // Score block (left) — vertically centered in footer
+  const scoreBlockH = Math.round(scoreLblSz*1.3) + 4 + scoreSz;
+  const footerCY    = fY + Math.round(FTH / 2);
+  const scoreTop    = footerCY - Math.round(scoreBlockH / 2);
+
+  ctx.font = `300 ${scoreLblSz}px "DM Sans"`;
+  ls(0.18, scoreLblSz);
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText('PHYLS SCORE', CX+HPP, scoreTop);
+  ls0();
+
+  const scoreValTop = scoreTop + Math.round(scoreLblSz * 1.3) + 4;
+  ctx.font = `300 ${scoreSz}px "Cormorant Garamond"`;
+  ctx.fillStyle = '#b8945a';
+  ctx.textBaseline = 'top';
+  ctx.fillText('7.6', CX+HPP, scoreValTop);
+  const scoreW = ctx.measureText('7.6').width;
+  ctx.font = `300 ${denomSz}px "DM Sans"`;
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('/10', CX+HPP+scoreW+4, scoreValTop+scoreSz);
+
+  // ID block (right) — vertically centered in footer
+  const idBlockH = Math.round(idLblSz*1.3) + 6 + Math.round(idValSz*1.3);
+  const idTop    = footerCY - Math.round(idBlockH / 2);
+
+  ctx.font = `300 ${idLblSz}px "DM Sans"`;
+  ls(0.12, idLblSz);
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+  ctx.fillText('PHYLS ID', CX+CW-HPP, idTop);
+  ls0();
+  ctx.font = `300 ${idValSz}px "DM Sans"`;
+  ls(0.14, idValSz);
+  ctx.fillStyle = 'rgba(255,255,255,0.26)';
+  ctx.fillText('ST.AU.BL.0001', CX+CW-HPP, idTop + Math.round(idLblSz*1.3) + 6);
+  ls0();
+
+  ctx.restore(); // end card clip
+
+  // Card border
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 2;
+  drawRoundRect(ctx, CX, CY, CW, CARD_H, R);
+  ctx.stroke();
+  // Outer glow ring
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 4;
+  drawRoundRect(ctx, CX-3, CY-3, CW+6, CARD_H+6, R+3);
+  ctx.stroke();
+
+  cv.toBlob(async blob => {
     const file = new File([blob], 'phyls-ST.AU.BL.0001.png', { type: 'image/png' });
     try {
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -1690,6 +1855,33 @@ async function exportCard() {
     document.body.appendChild(a); a.click();
     document.body.removeChild(a); URL.revokeObjectURL(url);
   });
+}
+
+function drawRoundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
+  ctx.arcTo(x+w, y,   x+w, y+r,   r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.arcTo(x+w, y+h, x+w-r, y+h, r);
+  ctx.lineTo(x+r, y+h);
+  ctx.arcTo(x, y+h,   x, y+h-r,   r);
+  ctx.lineTo(x, y+r);
+  ctx.arcTo(x, y,     x+r, y,      r);
+  ctx.closePath();
+}
+
+function drawCoverImage(ctx, img, dx, dy, dw, dh) {
+  const srcR = img.naturalWidth / img.naturalHeight;
+  const dstR = dw / dh;
+  let sx, sy, sw, sh;
+  if (srcR > dstR) {
+    sh = img.naturalHeight; sw = sh * dstR;
+    sx = (img.naturalWidth - sw) / 2; sy = 0;
+  } else {
+    sw = img.naturalWidth; sh = sw / dstR;
+    sx = 0; sy = (img.naturalHeight - sh) / 2;
+  }
+  ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
 }
 
 // Lock screen interaction
