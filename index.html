@@ -222,8 +222,8 @@ body {
 }
 
 .home-section-card {
-  background: var(--white);
-  border: 0.5px solid var(--parchment-deep);
+  background: var(--dark);
+  border: 0.5px solid rgba(255,255,255,0.07);
   padding: 1.1rem 1rem;
   cursor: pointer;
   display: flex;
@@ -234,7 +234,7 @@ body {
 }
 
 .home-section-card:active {
-  border-color: var(--gold);
+  border-color: rgba(184,148,90,0.5);
   transform: scale(0.97);
 }
 
@@ -250,18 +250,18 @@ body {
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: rgba(255,255,255,0.82);
 }
 
 .home-card-desc {
   font-size: 0.7rem;
-  color: var(--ink-muted);
+  color: rgba(255,255,255,0.42);
   line-height: 1.5;
 }
 
 .home-card-arrow {
   width: 14px; height: 14px;
-  stroke: var(--ink-faint);
+  stroke: rgba(255,255,255,0.22);
   fill: none;
   stroke-width: 1.5;
   align-self: flex-end;
@@ -759,7 +759,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.1rem;
-  border: 0.5px solid rgba(184,148,90,0.35);
+  border: 1px solid rgba(184,148,90,0.28);
   background: transparent;
   cursor: pointer;
   font-family: "DM Sans", sans-serif;
@@ -834,6 +834,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   pointer-events: none;
   transition: opacity 0.45s ease;
   user-select: none;
+  perspective: 900px;
 }
 .card-overlay.active { opacity: 1; pointer-events: all; }
 
@@ -849,19 +850,82 @@ details[open] .acc-icon { transform: rotate(45deg); }
 .watch-card {
   width: min(76vw, 288px);
   border-radius: 10px;
-  background: linear-gradient(160deg, #22180e 0%, #110d07 50%, #1a1208 100%);
-  border: 1px solid rgba(255,255,255,0.12);
-  overflow: hidden;
   box-shadow:
     0 0 0 3px rgba(0,0,0,0.6),
     0 0 0 4px rgba(255,255,255,0.04),
     0 28px 80px rgba(0,0,0,0.95),
     0 8px 24px rgba(0,0,0,0.6);
   position: relative;
-  cursor: default;
+  cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform 0.12s ease-out;
   will-change: transform;
+}
+.card-face {
+  border-radius: 10px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.card-front {
+  background: linear-gradient(160deg, #0d0b09 0%, #050403 50%, #0a0807 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.card-back {
+  position: absolute;
+  inset: 0;
+  background: #060504;
+  border: 1px solid rgba(255,255,255,0.10);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.25rem 1rem;
+}
+.card-back-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+.card-back-rule {
+  width: 38%;
+  height: 0.5px;
+  background: rgba(255,255,255,0.1);
+  flex-shrink: 0;
+}
+.card-back-fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.card-back-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.card-back-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.36rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+}
+.card-back-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.78);
+  text-align: right;
+}
+.card-back-id {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.34rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
 }
 
 .card-shine {
@@ -950,7 +1014,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.38rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.50);
   display: block;
   margin-top: 0.32rem;
 }
@@ -958,14 +1022,14 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.4rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.52);
   display: block;
   text-align: right;
 }
 .card-watch-serial {
   font-family: "Cormorant Garamond", serif;
   font-size: 0.7rem;
-  color: rgba(255,255,255,0.22);
+  color: rgba(255,255,255,0.50);
   display: block;
   margin-top: 0.1rem;
   text-align: right;
@@ -986,7 +1050,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.4rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.36);
+  color: rgba(255,255,255,0.60);
   width: 72px;
   flex-shrink: 0;
 }
@@ -1027,7 +1091,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.38rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.55);
   margin-bottom: 0.1rem;
 }
 .card-score-row { display: flex; align-items: baseline; }
@@ -1048,7 +1112,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.38rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.42);
   display: block;
   margin-bottom: 0.18rem;
 }
@@ -1056,7 +1120,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.48rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.26);
+  color: rgba(255,255,255,0.55);
   display: block;
 }
 
@@ -1470,59 +1534,107 @@ details[open] .acc-icon { transform: rotate(45deg); }
     <!-- WATCH CARD -->
     <div class="card-overlay" id="card-overlay" onclick="closeCard()">
       <div class="card-overlay-grain"></div>
-      <div class="watch-card" id="watch-card" onclick="event.stopPropagation()">
-        <div class="card-shine" id="card-shine"></div>
-        <div class="card-header">
-          <span class="card-brand">Phyls</span>
-        </div>
-        <div class="card-photo-wrap">
-          <img class="card-photo" id="card-photo" alt="">
-          <div class="card-photo-vignette"></div>
-        </div>
-        <div class="card-name-block">
-          <div>
-            <p class="card-watch-name">Seiko 5<br>Ref. 6119&#x2011;8093</p>
-            <span class="card-dealer">Issued by PHYLS, Athens</span>
+      <div class="watch-card" id="watch-card">
+        <!-- Front face -->
+        <div class="card-face card-front">
+          <div class="card-shine" id="card-shine"></div>
+          <div class="card-header">
+            <span class="card-brand">Phyls</span>
           </div>
-          <div>
-            <span class="card-watch-year">Japan · 1971</span>
-            <span class="card-watch-serial">175681 TL</span>
+          <div class="card-photo-wrap">
+            <img class="card-photo" id="card-photo" alt="">
+            <div class="card-photo-vignette"></div>
           </div>
-        </div>
-        <div class="card-stats">
-          <div class="card-stat">
-            <span class="card-stat-label">Condition</span>
-            <div class="card-stat-track"><div class="card-stat-fill" data-val="75"></div></div>
-            <span class="card-stat-num">7.5</span>
-          </div>
-          <div class="card-stat">
-            <span class="card-stat-label">Rarity</span>
-            <div class="card-stat-track"><div class="card-stat-fill" data-val="55"></div></div>
-            <span class="card-stat-num">5.5</span>
-          </div>
-          <div class="card-stat">
-            <span class="card-stat-label">Documentation</span>
-            <div class="card-stat-track"><div class="card-stat-fill" data-val="90"></div></div>
-            <span class="card-stat-num">9.0</span>
-          </div>
-          <div class="card-stat">
-            <span class="card-stat-label">Service</span>
-            <div class="card-stat-track"><div class="card-stat-fill" data-val="85"></div></div>
-            <span class="card-stat-num">8.5</span>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="card-score-block">
-            <span class="card-score-label">PHYLS Score</span>
-            <div class="card-score-row">
-              <span class="card-score">7.6</span>
-              <span class="card-score-denom">/10</span>
+          <div class="card-name-block">
+            <div>
+              <p class="card-watch-name">Seiko 5<br>Ref. 6119&#x2011;8093</p>
+              <span class="card-dealer">Issued by PHYLS, Athens</span>
+            </div>
+            <div>
+              <span class="card-watch-year">Japan · 1971</span>
+              <span class="card-watch-serial">175681 TL</span>
             </div>
           </div>
-          <div class="card-id-block">
-            <span class="card-id-label">PHYLS ID</span>
-            <span class="card-id-value">ST.AU.BL.0001</span>
+          <div class="card-stats">
+            <div class="card-stat">
+              <span class="card-stat-label">Condition</span>
+              <div class="card-stat-track"><div class="card-stat-fill" data-val="75"></div></div>
+              <span class="card-stat-num">7.5</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Rarity</span>
+              <div class="card-stat-track"><div class="card-stat-fill" data-val="55"></div></div>
+              <span class="card-stat-num">5.5</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Documentation</span>
+              <div class="card-stat-track"><div class="card-stat-fill" data-val="90"></div></div>
+              <span class="card-stat-num">9.0</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Service</span>
+              <div class="card-stat-track"><div class="card-stat-fill" data-val="85"></div></div>
+              <span class="card-stat-num">8.5</span>
+            </div>
           </div>
+          <div class="card-footer">
+            <div class="card-score-block">
+              <span class="card-score-label">PHYLS Score</span>
+              <div class="card-score-row">
+                <span class="card-score">7.6</span>
+                <span class="card-score-denom">/10</span>
+              </div>
+            </div>
+            <div class="card-id-block">
+              <span class="card-id-label">PHYLS ID</span>
+              <span class="card-id-value">ST.AU.BL.0001</span>
+            </div>
+          </div>
+        </div>
+        <!-- Back face -->
+        <div class="card-face card-back">
+          <p class="card-back-brand">Phyls</p>
+          <div class="card-back-rule"></div>
+          <div class="card-back-fields">
+            <div class="card-back-row">
+              <span class="card-back-label">Watch</span>
+              <span class="card-back-value">Seiko 5</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Reference</span>
+              <span class="card-back-value">6119&#x2011;8093</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Produced</span>
+              <span class="card-back-value">July 1971</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Serial</span>
+              <span class="card-back-value">175681 TL</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Movement</span>
+              <span class="card-back-value">6119C Automatic</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Case</span>
+              <span class="card-back-value">Stainless Steel</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Strap</span>
+              <span class="card-back-value">Brown Leather</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Owner</span>
+              <span class="card-back-value">Nikos Triantafyllou</span>
+            </div>
+            <div class="card-back-row">
+              <span class="card-back-label">Issued</span>
+              <span class="card-back-value">10 June 2026</span>
+            </div>
+          </div>
+          <div class="card-back-rule"></div>
+          <p class="card-back-id">ST.AU.BL.0001</p>
         </div>
       </div>
       <div class="card-actions">
@@ -1598,13 +1710,16 @@ document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
 function openCard() {
   const hero = document.querySelector('.home-cover-photo');
   if (hero) document.getElementById('card-photo').src = hero.src;
+  const card = document.getElementById('watch-card');
+  if (card) {
+    card.style.transition = 'none';
+    card.style.transform = 'rotateY(0deg)';
+    card.dataset.flipAngle = '0';
+  }
   document.getElementById('card-overlay').classList.add('active');
   setTimeout(() => {
     document.querySelectorAll('.card-stat-fill').forEach(b => { b.style.width = b.dataset.val + '%'; });
   }, 180);
-  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-    DeviceOrientationEvent.requestPermission().catch(() => {});
-  }
 }
 
 function closeCard() {
@@ -1659,7 +1774,7 @@ async function exportCard() {
 
   // Card background (gradient matching app)
   const cardBg = ctx.createLinearGradient(CX+CW*.7, CY, CX, CY+CARD_H);
-  cardBg.addColorStop(0, '#22180e'); cardBg.addColorStop(.5, '#110d07'); cardBg.addColorStop(1, '#1a1208');
+  cardBg.addColorStop(0, '#0d0b09'); cardBg.addColorStop(.5, '#050403'); cardBg.addColorStop(1, '#0a0807');
   drawRoundRect(ctx, CX, CY, CW, CARD_H, R);
   ctx.fillStyle = cardBg; ctx.fill();
 
@@ -1724,21 +1839,21 @@ async function exportCard() {
   const dlrSz = fs(0.38);
   ctx.font = `300 ${dlrSz}px "DM Sans"`;
   ls(0.16, dlrSz);
-  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.fillStyle = 'rgba(255,255,255,0.50)';
   ctx.fillText('ISSUED BY PHYLS, ATHENS', CX+HPP, nTop + Math.round(wn1Sz*1.25) + Math.round(wn2Sz*1.4));
   ls0();
 
   const yrSz = fs(0.4);
   ctx.font = `300 ${yrSz}px "DM Sans"`;
   ls(0.2, yrSz);
-  ctx.fillStyle = 'rgba(255,255,255,0.28)';
+  ctx.fillStyle = 'rgba(255,255,255,0.52)';
   ctx.textAlign = 'right';
   ctx.fillText('JAPAN · 1971', CX+CW-HPP, nTop);
   ls0();
 
   const serialSz = fs(0.7);
   ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
-  ctx.fillStyle = 'rgba(255,255,255,0.22)';
+  ctx.fillStyle = 'rgba(255,255,255,0.50)';
   ctx.fillText('175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
 
   // ── Stats ────────────────────────────────────────────────────────────────
@@ -1759,7 +1874,7 @@ async function exportCard() {
     const midY = stY + STPT + i * (STH + STG) + Math.round(STH / 2);
     ctx.font = `300 ${lblSz}px "DM Sans"`;
     ls(0.13, lblSz);
-    ctx.fillStyle = 'rgba(255,255,255,0.36)';
+    ctx.fillStyle = 'rgba(255,255,255,0.60)';
     ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
     ctx.fillText(s.label.toUpperCase(), CX+HPP, midY);
     ls0();
@@ -1799,7 +1914,7 @@ async function exportCard() {
 
   ctx.font = `300 ${scoreLblSz}px "DM Sans"`;
   ls(0.18, scoreLblSz);
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
   ctx.textAlign = 'left'; ctx.textBaseline = 'top';
   ctx.fillText('PHYLS SCORE', CX+HPP, scoreTop);
   ls0();
@@ -1821,13 +1936,13 @@ async function exportCard() {
 
   ctx.font = `300 ${idLblSz}px "DM Sans"`;
   ls(0.12, idLblSz);
-  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.fillStyle = 'rgba(255,255,255,0.42)';
   ctx.textAlign = 'right'; ctx.textBaseline = 'top';
   ctx.fillText('PHYLS ID', CX+CW-HPP, idTop);
   ls0();
   ctx.font = `300 ${idValSz}px "DM Sans"`;
   ls(0.14, idValSz);
-  ctx.fillStyle = 'rgba(255,255,255,0.26)';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
   ctx.fillText('ST.AU.BL.0001', CX+CW-HPP, idTop + Math.round(idLblSz*1.3) + 6);
   ls0();
 
@@ -1913,43 +2028,84 @@ function drawCoverImage(ctx, img, dx, dy, dw, dh) {
   });
 })();
 
-// Card tilt — desktop mouse
-const watchCard = document.getElementById('watch-card');
-if (watchCard) {
-  watchCard.addEventListener('mousemove', e => {
-    const r = watchCard.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    watchCard.style.transform = `perspective(800px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg)`;
-    const shine = document.getElementById('card-shine');
-    const angle = Math.atan2(y, x) * 180 / Math.PI + 90;
-    shine.style.opacity = '1';
-    shine.style.background = `linear-gradient(${angle}deg, transparent 38%, rgba(255,240,180,0.08) 50%, rgba(255,218,120,0.15) 55%, rgba(255,240,180,0.08) 64%, transparent 74%)`;
-  });
-  watchCard.addEventListener('mouseleave', () => {
-    watchCard.style.transform = '';
-    document.getElementById('card-shine').style.opacity = '0';
-  });
-}
+// Card flip — drag left/right or tap to flip between front and back
+(function () {
+  const card = document.getElementById('watch-card');
+  if (!card) return;
 
-// Card tilt — mobile gyroscope
-if (window.DeviceOrientationEvent) {
-  window.addEventListener('deviceorientation', e => {
-    if (!document.getElementById('card-overlay').classList.contains('active') || !watchCard) return;
-    const x = Math.max(-1, Math.min(1, (e.gamma || 0) / 28));
-    const y = Math.max(-1, Math.min(1, ((e.beta || 0) - 30) / 28));
-    watchCard.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
-    const intensity = Math.min(Math.sqrt(x * x + y * y) * 0.9, 0.9);
-    const shine = document.getElementById('card-shine');
-    if (intensity > 0.06) {
-      const angle = Math.atan2(y, x) * 180 / Math.PI + 90;
-      shine.style.opacity = String(intensity * 0.9);
-      shine.style.background = `linear-gradient(${angle}deg, transparent 35%, rgba(255,240,180,0.1) 50%, rgba(255,218,120,0.18) 55%, rgba(255,240,180,0.1) 65%, transparent 76%)`;
+  let startX = 0, startAngle = 0, dragging = false, moved = false, lastTouch = 0;
+
+  function getFace() { return parseInt(card.dataset.flipAngle || '0', 10); }
+
+  function commit(raw) {
+    const norm = ((raw % 360) + 360) % 360;
+    const target = (norm > 90 && norm <= 270) ? 180 : 0;
+    card.dataset.flipAngle = String(target);
+    card.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+    card.style.transform = 'rotateY(' + target + 'deg)';
+  }
+
+  card.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX;
+    startAngle = getFace();
+    dragging = true; moved = false;
+    card.style.transition = 'none';
+    e.stopPropagation();
+  }, { passive: true });
+
+  card.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    var dx = e.touches[0].clientX - startX;
+    if (Math.abs(dx) > 8) moved = true;
+    if (moved) card.style.transform = 'rotateY(' + (startAngle - dx * 0.65) + 'deg)';
+    e.stopPropagation();
+  }, { passive: true });
+
+  card.addEventListener('touchend', function (e) {
+    if (!dragging) return;
+    dragging = false; lastTouch = Date.now();
+    var dx = e.changedTouches[0].clientX - startX;
+    if (!moved || Math.abs(dx) < 30) {
+      commit(getFace() === 0 ? 180 : 0);
     } else {
-      shine.style.opacity = '0';
+      commit(startAngle - dx * 0.65);
+    }
+    e.stopPropagation();
+  });
+
+  card.addEventListener('mousedown', function (e) {
+    startX = e.clientX;
+    startAngle = getFace();
+    dragging = true; moved = false;
+    card.style.transition = 'none';
+    e.stopPropagation();
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    var dx = e.clientX - startX;
+    if (Math.abs(dx) > 8) moved = true;
+    if (moved) card.style.transform = 'rotateY(' + (startAngle - dx * 0.65) + 'deg)';
+  });
+
+  document.addEventListener('mouseup', function (e) {
+    if (!dragging) return;
+    dragging = false;
+    var dx = e.clientX - startX;
+    if (!moved || Math.abs(dx) < 30) {
+      commit(getFace() === 0 ? 180 : 0);
+    } else {
+      commit(startAngle - dx * 0.65);
     }
   });
-}
+
+  // Block ghost click from bubbling to overlay close handler
+  card.addEventListener('click', function (e) {
+    if (Date.now() - lastTouch < 400) { e.stopPropagation(); return; }
+    commit(getFace() === 0 ? 180 : 0);
+    e.stopPropagation();
+  });
+})();
 </script>
 </body>
 </html>
