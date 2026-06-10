@@ -180,12 +180,11 @@ body {
 }
 
 .home-ref {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(253,252,250,0.92);
   margin-bottom: 0.3rem;
-  margin-left: -0.1em;
   text-shadow: 0 1px 8px rgba(0,0,0,0.85);
 }
 
@@ -258,6 +257,8 @@ body {
   fill: var(--white);
   stroke: none;
 }
+
+.home-card-icon .gear-hole { fill: #e8e5e0; }
 
 .tab .gear-body { fill: var(--ink-faint); }
 .tab.active .gear-body { fill: var(--gold); }
@@ -921,10 +922,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
     rgba(255,240,180,0.07) 62%,
     transparent 72%
   );
-  mix-blend-mode: screen;
   transition: opacity 0.2s;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 .card-header {
@@ -952,15 +950,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   padding: 0.2rem 0.45rem;
 }
 
-.card-photo-wrap { position: relative; width: 100%; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.card-photo-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255,255,255,0.06);
-  pointer-events: none;
-  z-index: 2;
-}
+.card-photo-wrap { position: relative; width: 100%; overflow: hidden; }
 .card-photo {
   width: 100%;
   aspect-ratio: 4/3;
