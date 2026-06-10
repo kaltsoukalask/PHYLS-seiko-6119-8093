@@ -203,6 +203,7 @@ body {
   font-weight: 300;
   color: var(--white);
   line-height: 1.15;
+  margin-left: -0.05em;
 }
 
 .home-phyls-mark {
@@ -885,7 +886,6 @@ details[open] .acc-icon { transform: rotate(45deg); }
 }
 .card-front {
   background: linear-gradient(160deg, #0c0c0c 0%, #020202 50%, #080808 100%);
-  border: 1px solid rgba(255,255,255,0.12);
 }
 .card-back {
   position: absolute;
@@ -980,14 +980,6 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-weight: 300;
   color: var(--white);
   line-height: 1.2;
-}
-.card-dealer {
-  font-size: 0.38rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.50);
-  display: block;
-  margin-top: 0.32rem;
 }
 .card-watch-year {
   font-size: 0.4rem;
@@ -1524,11 +1516,10 @@ details[open] .acc-icon { transform: rotate(45deg); }
           <div class="card-name-block">
             <div>
               <p class="card-watch-name">Seiko 5<br>Ref. 6119&#x2011;8093</p>
-              <span class="card-dealer">Issued by PHYLS, Athens</span>
             </div>
             <div>
               <span class="card-watch-year">Japan · 1971</span>
-              <span class="card-watch-serial">175681 TL</span>
+              <span class="card-watch-serial">S/N · 175681 TL</span>
             </div>
           </div>
           <div class="card-stats">
@@ -1771,13 +1762,6 @@ async function exportCard() {
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
   ctx.fillText('Ref. 6119‑8093', CX+HPP, nTop + Math.round(wn1Sz * 1.25));
 
-  const dlrSz = fs(0.38);
-  ctx.font = `300 ${dlrSz}px "DM Sans"`;
-  ls(0.16, dlrSz);
-  ctx.fillStyle = 'rgba(255,255,255,0.50)';
-  ctx.fillText('ISSUED BY PHYLS, ATHENS', CX+HPP, nTop + Math.round(wn1Sz*1.25) + Math.round(wn2Sz*1.4));
-  ls0();
-
   const yrSz = fs(0.4);
   ctx.font = `300 ${yrSz}px "DM Sans"`;
   ls(0.2, yrSz);
@@ -1789,7 +1773,7 @@ async function exportCard() {
   const serialSz = fs(0.7);
   ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
   ctx.fillStyle = 'rgba(255,255,255,0.50)';
-  ctx.fillText('175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
+  ctx.fillText('S/N · 175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
 
   // ── Stats ────────────────────────────────────────────────────────────────
   const stY = nY + NMH;
