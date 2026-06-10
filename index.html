@@ -205,17 +205,15 @@ body {
   line-height: 1.15;
 }
 
-.home-phyls-logo {
-  width: 64px;
-  aspect-ratio: 4 / 3;
+.home-phyls-mark {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--gold);
   flex-shrink: 0;
-  margin-bottom: 6px;
-  opacity: 0.55;
-  background-image: var(--phyls-logo);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  filter: drop-shadow(0 1px 8px rgba(0,0,0,0.6));
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 
 .home-sections {
@@ -229,6 +227,7 @@ body {
   background: #e8e5e0;
   border: 0.5px solid rgba(0,0,0,0.06);
   padding: 1.1rem 1rem;
+  min-height: 9.25rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -247,6 +246,16 @@ body {
   stroke: var(--gold);
   fill: none;
   stroke-width: 1.3;
+}
+
+.gear-body {
+  fill: var(--gold);
+  stroke: none;
+}
+
+.gear-hole {
+  fill: var(--white);
+  stroke: none;
 }
 
 .home-card-title {
@@ -285,14 +294,14 @@ body {
   font-size: 0.58rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+  color: var(--gold);
   margin-bottom: 0.25rem;
 }
 
 .home-owner-name {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.15rem;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .home-warranty-dot {
@@ -1231,7 +1240,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
             <h1 class="home-title">Seiko 5<br>Ref. 6119&#x2011;8093</h1>
             <p class="home-age">55 years in service</p>
           </div>
-          <div class="home-phyls-logo"></div>
+          <p class="home-phyls-mark">Phyls</p>
         </div>
       </div>
 
@@ -1257,7 +1266,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
           <svg class="home-card-arrow" viewBox="0 0 14 14"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
         </div>
         <div class="home-section-card" onclick="goTo('service')">
-          <svg class="home-card-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6"/><circle cx="10" cy="10" r="5.7"/><path d="M10 2.5v1.8M10 15.7v1.8M17.5 10h-1.8M4.3 10H2.5M15.6 4.4l-1.3 1.3M5.7 14.3l-1.3 1.3M15.6 15.6l-1.3-1.3M5.7 5.7L4.4 4.4"/></svg>
+          <svg class="home-card-icon" viewBox="0 0 20 20"><circle class="gear-body" cx="10" cy="10" r="4"/><g class="gear-body"><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(0 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(36 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(72 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(108 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(144 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(180 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(216 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(252 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(288 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(324 10 10)"/></g><circle class="gear-hole" cx="10" cy="10" r="1.85"/></svg>
           <span class="home-card-title">Service</span>
           <span class="home-card-desc">Maintenance &amp; history</span>
           <svg class="home-card-arrow" viewBox="0 0 14 14"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
@@ -1593,7 +1602,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
       <span class="tab-label">Care</span>
     </button>
     <button class="tab" id="tab-service" onclick="goTo('service')" role="tab" aria-label="Service">
-      <svg class="tab-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6"/><circle cx="10" cy="10" r="5.7"/><path d="M10 2.5v1.8M10 15.7v1.8M17.5 10h-1.8M4.3 10H2.5M15.6 4.4l-1.3 1.3M5.7 14.3l-1.3 1.3M15.6 15.6l-1.3-1.3M5.7 5.7L4.4 4.4"/></svg>
+      <svg class="tab-icon" viewBox="0 0 20 20"><circle class="gear-body" cx="10" cy="10" r="4"/><g class="gear-body"><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(0 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(36 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(72 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(108 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(144 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(180 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(216 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(252 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(288 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(324 10 10)"/></g><circle class="gear-hole" cx="10" cy="10" r="1.85"/></svg>
       <span class="tab-label">Service</span>
     </button>
     <button class="tab" id="tab-ownership" onclick="goTo('ownership')" role="tab" aria-label="Ownership">
