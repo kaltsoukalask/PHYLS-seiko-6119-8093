@@ -185,6 +185,7 @@ body {
   text-transform: uppercase;
   color: rgba(253,252,250,0.92);
   margin-bottom: 0.3rem;
+  margin-left: -0.18em;
   text-shadow: 0 1px 8px rgba(0,0,0,0.85);
 }
 
@@ -208,9 +209,9 @@ body {
 .home-phyls-mark {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.05rem;
-  font-style: italic;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--gold);
   flex-shrink: 0;
   text-shadow: 0 1px 6px rgba(0,0,0,0.6);
@@ -257,6 +258,9 @@ body {
   fill: var(--white);
   stroke: none;
 }
+
+.tab .gear-body { fill: var(--ink-faint); }
+.tab.active .gear-body { fill: var(--gold); }
 
 .home-card-title {
   font-size: 0.78rem;
@@ -865,7 +869,6 @@ details[open] .acc-icon { transform: rotate(45deg); }
   border-radius: 10px;
   box-shadow:
     0 0 0 3px rgba(0,0,0,0.6),
-    0 0 0 4px rgba(255,255,255,0.04),
     0 28px 80px rgba(0,0,0,0.95),
     0 8px 24px rgba(0,0,0,0.6);
   position: relative;
@@ -1266,7 +1269,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
           <svg class="home-card-arrow" viewBox="0 0 14 14"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
         </div>
         <div class="home-section-card" onclick="goTo('service')">
-          <svg class="home-card-icon" viewBox="0 0 20 20"><circle class="gear-body" cx="10" cy="10" r="4"/><g class="gear-body"><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(0 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(36 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(72 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(108 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(144 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(180 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(216 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(252 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(288 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(324 10 10)"/></g><circle class="gear-hole" cx="10" cy="10" r="1.85"/></svg>
+          <svg class="home-card-icon" viewBox="0 0 20 20"><circle class="gear-body" cx="10" cy="10" r="4.4"/><g class="gear-body"><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(0 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(36 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(72 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(108 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(144 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(180 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(216 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(252 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(288 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(324 10 10)"/></g><circle class="gear-hole" cx="10" cy="10" r="1.85"/></svg>
           <span class="home-card-title">Service</span>
           <span class="home-card-desc">Maintenance &amp; history</span>
           <svg class="home-card-arrow" viewBox="0 0 14 14"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
@@ -1451,7 +1454,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
     <div class="screen" id="screen-ownership">
       <div class="screen-header-dark">
         <p class="screen-header-eyebrow">Certificate</p>
-        <h2 class="screen-header-title">Ownership</h2>
+        <h2 class="screen-header-title">of Ownership &amp; Authenticity</h2>
       </div>
       <div class="screen-body">
         <div class="ownership-cert">
@@ -1474,6 +1477,10 @@ details[open] .acc-icon { transform: rotate(45deg); }
             <span class="cert-row-value">ST.AU.BL.0001</span>
           </div>
           <div class="cert-row">
+            <span class="cert-row-label">Authenticated by</span>
+            <span class="cert-row-value">PHYLS</span>
+          </div>
+          <div class="cert-row">
             <span class="cert-row-label">Issued</span>
             <span class="cert-row-value">11 June 2026 · Athens</span>
           </div>
@@ -1482,7 +1489,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
             <span class="cert-warranty-text">Warranty active · Until 11 Dec 2026</span>
           </div>
           <div class="cert-divider" style="margin-top:1.5rem;"></div>
-          <p class="cert-stewardship">This watch carries its history with it — and from here, your chapter begins.</p>
+          <p class="cert-stewardship">This watch carries its history with it and from here, your chapter begins.</p>
         </div>
 
         <div style="text-align:center;padding:1.75rem 0;">
@@ -1602,7 +1609,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
       <span class="tab-label">Care</span>
     </button>
     <button class="tab" id="tab-service" onclick="goTo('service')" role="tab" aria-label="Service">
-      <svg class="tab-icon" viewBox="0 0 20 20"><circle class="gear-body" cx="10" cy="10" r="4"/><g class="gear-body"><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(0 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(36 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(72 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(108 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(144 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(180 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(216 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(252 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(288 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(324 10 10)"/></g><circle class="gear-hole" cx="10" cy="10" r="1.85"/></svg>
+      <svg class="tab-icon" viewBox="0 0 20 20"><circle class="gear-body" cx="10" cy="10" r="4.4"/><g class="gear-body"><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(0 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(36 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(72 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(108 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(144 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(180 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(216 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(252 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(288 10 10)"/><rect x="9.2" y="2.9" width="1.6" height="2.7" rx="0.4" transform="rotate(324 10 10)"/></g><circle class="gear-hole" cx="10" cy="10" r="1.85"/></svg>
       <span class="tab-label">Service</span>
     </button>
     <button class="tab" id="tab-ownership" onclick="goTo('ownership')" role="tab" aria-label="Ownership">
