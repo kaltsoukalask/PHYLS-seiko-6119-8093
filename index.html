@@ -1046,7 +1046,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
 .card-footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 0.55rem 0.9rem;
   background: rgba(0,0,0,0.28);
   border-top: 0.5px solid rgba(255,255,255,0.07);
@@ -1828,10 +1828,8 @@ async function exportCard() {
   const idLblSz    = fs(0.38);
   const idValSz    = fs(0.48);
 
-  // Score block (left) — vertically centered in footer
-  const scoreBlockH = Math.round(scoreLblSz*1.3) + 4 + scoreSz;
-  const footerCY    = fY + Math.round(FTH / 2);
-  const scoreTop    = footerCY - Math.round(scoreBlockH / 2);
+  // Score block (left) — top-aligned in footer
+  const scoreTop = fY + pp(0.55);
 
   ctx.font = `300 ${scoreLblSz}px "DM Sans"`;
   ls(0.18, scoreLblSz);
@@ -1851,9 +1849,8 @@ async function exportCard() {
   ctx.textBaseline = 'bottom';
   ctx.fillText('/10', CX+HPP+scoreW+4, scoreValTop+scoreSz);
 
-  // ID block (right) — vertically centered in footer
-  const idBlockH = Math.round(idLblSz*1.3) + 6 + Math.round(idValSz*1.3);
-  const idTop    = footerCY - Math.round(idBlockH / 2);
+  // ID block (right) — top-aligned in footer
+  const idTop = scoreTop;
 
   ctx.font = `300 ${idLblSz}px "DM Sans"`;
   ls(0.12, idLblSz);
