@@ -881,6 +881,8 @@ details[open] .acc-icon { transform: rotate(45deg); }
 .card-face {
   border-radius: 10px;
   overflow: hidden;
+  clip-path: inset(0 round 10px);
+  -webkit-clip-path: inset(0 round 10px);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -1519,7 +1521,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
             </div>
             <div>
               <span class="card-watch-year">Japan · 1971</span>
-              <span class="card-watch-serial">S/N · 175681 TL</span>
+              <span class="card-watch-serial">Serial No. · 175681 TL</span>
             </div>
           </div>
           <div class="card-stats">
@@ -1773,7 +1775,7 @@ async function exportCard() {
   const serialSz = fs(0.7);
   ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
   ctx.fillStyle = 'rgba(255,255,255,0.50)';
-  ctx.fillText('S/N · 175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
+  ctx.fillText('Serial No. · 175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
 
   // ── Stats ────────────────────────────────────────────────────────────────
   const stY = nY + NMH;
