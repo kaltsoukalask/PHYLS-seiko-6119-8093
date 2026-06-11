@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
 <title>PHYLS — Seiko 5 Ref. 6119-8093</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --ink: #1a1815;
@@ -1079,7 +1079,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   text-transform: uppercase;
   color: rgba(255,255,255,0.42);
   display: block;
-  margin-bottom: 0.18rem;
+  margin-bottom: 0.1rem;
 }
 .card-id-value {
   font-size: 0.48rem;
@@ -1521,7 +1521,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
             </div>
             <div>
               <span class="card-watch-year">Japan · 1971</span>
-              <span class="card-watch-serial">Serial No. · 175681 TL</span>
+              <span class="card-watch-serial">Serial No.: 175681 TL</span>
             </div>
           </div>
           <div class="card-stats">
@@ -1743,8 +1743,6 @@ async function exportCard() {
     vigH.addColorStop(.86,'transparent');   vigH.addColorStop(1,'rgba(8,5,2,.14)');
     ctx.fillStyle = vigH; ctx.fillRect(CX, pY, CW, PHH);
     ctx.restore();
-    ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
-    ctx.strokeRect(CX, pY, CW, PHH);
   }
 
   // ── Name block ───────────────────────────────────────────────────────────
@@ -1775,7 +1773,7 @@ async function exportCard() {
   const serialSz = fs(0.7);
   ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
   ctx.fillStyle = 'rgba(255,255,255,0.50)';
-  ctx.fillText('Serial No. · 175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
+  ctx.fillText('Serial No.: 175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
 
   // ── Stats ────────────────────────────────────────────────────────────────
   const stY = nY + NMH;
@@ -1861,7 +1859,7 @@ async function exportCard() {
   ctx.font = `300 ${idValSz}px "DM Sans"`;
   ls(0.14, idValSz);
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText('ST.AU.BL.0001', CX+CW-HPP, idTop + Math.round(idLblSz*1.3) + 6);
+  ctx.fillText('ST.AU.BL.0001', CX+CW-HPP, idTop + Math.round(idLblSz*1.3) + 4);
   ls0();
 
   ctx.restore(); // end card clip
