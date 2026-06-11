@@ -1749,31 +1749,34 @@ async function exportCard() {
   const nY = pY + PHH;
   ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(CX, nY+NMH); ctx.lineTo(CX+CW, nY+NMH); ctx.stroke();
-  const nTop = nY + pp(0.65);
+  // Both columns sit on the same bottom edge (matches live align-items: flex-end)
+  const nBottom = nY + NMH - pp(0.6);
 
   const wn1Sz = fs(1.1);
-  ctx.font = `300 ${wn1Sz}px "Cormorant Garamond"`;
-  ctx.fillStyle = 'rgba(255,255,255,0.97)';
-  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-  ctx.fillText('Seiko 5', CX+HPP, nTop);
-
   const wn2Sz = fs(0.9);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+
   ctx.font = `300 ${wn2Sz}px "Cormorant Garamond"`;
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText('Ref. 6119‑8093', CX+HPP, nTop + Math.round(wn1Sz * 1.25));
+  ctx.fillText('Ref. 6119‑8093', CX+HPP, nBottom);
+
+  ctx.font = `300 ${wn1Sz}px "Cormorant Garamond"`;
+  ctx.fillStyle = 'rgba(255,255,255,0.97)';
+  ctx.fillText('Seiko 5', CX+HPP, nBottom - Math.round(wn2Sz * 1.25));
 
   const yrSz = fs(0.4);
+  const serialSz = fs(0.7);
+  ctx.textAlign = 'right';
+
+  ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
+  ctx.fillStyle = 'rgba(255,255,255,0.50)';
+  ctx.fillText('Serial No.: 175681 TL', CX+CW-HPP, nBottom);
+
   ctx.font = `300 ${yrSz}px "DM Sans"`;
   ls(0.2, yrSz);
   ctx.fillStyle = 'rgba(255,255,255,0.52)';
-  ctx.textAlign = 'right';
-  ctx.fillText('JAPAN · 1971', CX+CW-HPP, nTop);
+  ctx.fillText('JAPAN · 1971', CX+CW-HPP, nBottom - Math.round(serialSz * 1.25));
   ls0();
-
-  const serialSz = fs(0.7);
-  ctx.font = `300 ${serialSz}px "Cormorant Garamond"`;
-  ctx.fillStyle = 'rgba(255,255,255,0.50)';
-  ctx.fillText('Serial No.: 175681 TL', CX+CW-HPP, nTop + Math.round(yrSz * 1.6));
 
   // ── Stats ────────────────────────────────────────────────────────────────
   const stY = nY + NMH;
