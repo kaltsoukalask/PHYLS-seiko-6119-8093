@@ -1059,7 +1059,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   color: rgba(255,255,255,0.55);
   margin-bottom: 0.1rem;
 }
-.card-score-row { display: flex; align-items: baseline; }
+.card-score-row { display: flex; align-items: baseline; margin-top: -0.35rem; }
 .card-score {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.55rem;
@@ -1839,7 +1839,7 @@ async function exportCard() {
   ctx.fillText('PHYLS SCORE', CX+HPP, scoreTop);
   ls0();
 
-  const scoreValTop = scoreTop + Math.round(scoreLblSz * 1.3) + 4;
+  const scoreValTop = scoreTop + Math.round(scoreLblSz * 1.3) + 4 - pp(0.35);
   ctx.font = `300 ${scoreSz}px "Cormorant Garamond"`;
   ctx.fillStyle = '#b8945a';
   ctx.textBaseline = 'top';
