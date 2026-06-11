@@ -1047,7 +1047,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0.55rem 0.9rem;
+  padding: 0.42rem 0.9rem 0.55rem;
   background: rgba(0,0,0,0.28);
   border-top: 0.5px solid rgba(255,255,255,0.07);
 }
@@ -1059,7 +1059,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   color: rgba(255,255,255,0.55);
   margin-bottom: 0.1rem;
 }
-.card-score-row { display: flex; align-items: baseline; margin-top: -0.35rem; }
+.card-score-row { display: flex; align-items: baseline; margin-top: -0.05rem; }
 .card-score {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.55rem;
@@ -1070,7 +1070,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
   font-size: 0.52rem;
   color: rgba(255,255,255,0.2);
   margin-left: 0.12rem;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.42rem;
 }
 .card-id-block { text-align: right; }
 .card-id-label {
@@ -1830,7 +1830,7 @@ async function exportCard() {
   const idValSz    = fs(0.48);
 
   // Score block (left) — top-aligned in footer
-  const scoreTop = fY + pp(0.55);
+  const scoreTop = fY + pp(0.42);
 
   ctx.font = `300 ${scoreLblSz}px "DM Sans"`;
   ls(0.18, scoreLblSz);
@@ -1839,7 +1839,7 @@ async function exportCard() {
   ctx.fillText('PHYLS SCORE', CX+HPP, scoreTop);
   ls0();
 
-  const scoreValTop = scoreTop + Math.round(scoreLblSz * 1.3) + 4 - pp(0.35);
+  const scoreValTop = scoreTop + Math.round(scoreLblSz * 1.3) + 4 - pp(0.05);
   ctx.font = `300 ${scoreSz}px "Cormorant Garamond"`;
   ctx.fillStyle = '#b8945a';
   ctx.textBaseline = 'top';
@@ -1848,7 +1848,7 @@ async function exportCard() {
   ctx.font = `300 ${denomSz}px "DM Sans"`;
   ctx.fillStyle = 'rgba(255,255,255,0.2)';
   ctx.textBaseline = 'bottom';
-  ctx.fillText('/10', CX+HPP+scoreW+4, scoreValTop+scoreSz);
+  ctx.fillText('/10', CX+HPP+scoreW+4, scoreValTop+scoreSz-pp(0.27));
 
   // ID block (right) — top-aligned in footer
   const idTop = scoreTop;
